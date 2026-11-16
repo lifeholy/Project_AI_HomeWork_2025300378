@@ -1,0 +1,48 @@
+{
+    "system": {
+        "interval_sec": 2,
+        "sound_alert_enabled": true,
+        "beep_freq_hz": 1200,
+        "beep_duration_ms": 350
+    },
+    "thresholds": {
+        "cpu_percent": 85,
+        "ram_percent": 85,
+        "disk_percent": 90,
+        "disk_drive": "C:\\"
+    },
+    "target_processes": [
+        "Gms.Application.exe",
+        "FasServer.exe",
+        "SMC.exe",
+        "bgw.exe",
+        "sqlservr.exe"
+    ],
+    "inspection_commands": {
+        "daily_fas": {
+            "name": "일일 FAS 점검 (F100-2-001)",
+            "cmd": "ping -n 1 -w 1000 172.21.126.31 && sc query MSSQLSERVER",
+            "timeout_sec": 10
+        },
+        "daily_eai": {
+            "name": "일일 EAI 점검 (F100-1-001)",
+            "cmd": "netstat -ano | findstr \":1433\" && netstat -ano | findstr \":80\"",
+            "timeout_sec": 10
+        },
+        "monthly": {
+            "name": "월간 점검 (F100-3-030)",
+            "cmd": "sc query W32Time && sc query V3Service",
+            "timeout_sec": 15
+        },
+        "annual": {
+            "name": "연간 점검 (F100-4-360)",
+            "cmd": "net accounts && netsh interface show interface",
+            "timeout_sec": 20
+        },
+        "backup": {
+            "name": "로그 백업 (F100-4-360-save)",
+            "cmd": "tar -a -cf C:\\checkPMI\\logs_backup.zip -C C:\\checkPMI logs",
+            "timeout_sec": 60
+        }
+    }
+}

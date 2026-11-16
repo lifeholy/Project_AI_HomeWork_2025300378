@@ -1,0 +1,20 @@
+[package]
+name = "fsc400_dashboard"
+version = "1.0.0"
+edition = "2021"
+description = "FSC400 초음파 유량계 실시간 관제 (Rust GUI)"
+
+[dependencies]
+eframe = "0.29"
+egui_plot = "0.29"
+serialport = "4"
+chrono = "0.4"
+csv = "1"
+rand = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
