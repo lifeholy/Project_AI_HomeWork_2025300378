@@ -1,0 +1,29 @@
+{
+    "system": {
+        "interval_sec": 2,
+        "sound_alert_enabled": true,
+        "beep_freq_hz": 1200,
+        "beep_duration_ms": 350,
+        "time_sync_cmd": "w32tm /resync /force"
+    },
+    "thresholds": {
+        "cpu_percent": 85,
+        "ram_percent": 85,
+        "disk_percent": 90,
+        "disk_drive": "C:\\",
+        "proc_count_limit": 300
+    },
+    "target_processes": [
+        "Gms.Application.exe",
+        "FasServer.exe",
+        "SMC.exe",
+        "bgw.exe",
+        "sqlservr.exe"
+    ],
+    "bat_paths": {
+        "daily_fas": "",
+        "daily_eai": "",
+        "monthly": "",
+        "annual": ""
+    }
+}

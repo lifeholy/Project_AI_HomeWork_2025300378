@@ -1,0 +1,34 @@
+AIRBOOK-FAS & EAI 서버 관제 GUI (checkserver.exe)
+
+[구성]
+- checkserver.exe : 실행 파일
+- userset.json    : 설정 파일. 반드시 exe와 같은 폴더에 둘 것.
+
+[실행]
+- checkserver.exe 더블클릭
+- 점검 배치 스크립트가 C:\checkPMI 에 없으면 자동 생성됨
+- 관리자 권한이 필요할 수 있음 (서비스 조회, 프로세스 상세 정보)
+
+[화면]
+- 대시보드 : CPU / RAM / DISK / 프로세스 수 게이지. 게이지 클릭 시 해당 정렬의 프로세스 탭 또는 디스크 상세 창
+- 프로세스 : 실시간 목록, 감시 대상은 파란색 굵은 글씨, 더블클릭 시 실행 파일 경로·명령줄 확인
+- 점검실행 : 일일 FAS / EAI 점검 배치 실행
+- 결과조회 : 날짜 선택 후 시간대별 점검 결과(TXT, CSV) 열람
+- 로그 : 누적 로그 열람과 검색
+- 설정 : 감시 프로세스, 임계치, 감시 드라이브, 시간 동기화 명령, 배치 경로 설정 후 저장
+
+[경보]
+- CPU / RAM / DISK 임계치 초과, 프로세스 수 초과, 감시 프로세스 부재 시 화면이 붉게 바뀌고 경고음 반복
+- 모든 지표가 정상으로 돌아오면 자동 복귀
+
+[설정 파일 주요 항목 (userset.json)]
+- system.interval_sec : 감시 주기(초)
+- thresholds.cpu_percent / ram_percent / disk_percent : 경고 임계치(%)
+- thresholds.proc_count_limit : 프로세스 수 경보 기준
+- thresholds.disk_drive : 감시 드라이브 (예: C:\)
+- target_processes : 감시 대상 프로세스 목록
+- bat_paths : 점검 배치 파일 경로
+
+[로그 및 결과 위치]
+- 누적 로그 : C:\checkPMI\logs\system_accumulated.log
+- 점검 결과 : C:\checkPMI\logs\<yyyymmdd_hhmmss>\check_result.txt / .csv

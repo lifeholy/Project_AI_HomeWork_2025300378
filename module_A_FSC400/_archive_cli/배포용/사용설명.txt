@@ -1,0 +1,27 @@
+FSC400 유량계 데이터 수집기 (fsc400_collector.exe)
+
+[실행 방법]
+- 실장비 (RS485 연결, 포트 번호는 장치관리자에서 확인)
+  fsc400_collector.exe --live --port COM3 --baud 9600 --slave 1 --duration 60 --interval 0.1
+- 시뮬레이션 (장비 없이 샘플 데이터 생성)
+  fsc400_collector.exe --simulate --samples 1000 --rate 10 --output outputs\fsc400_sample_log.csv
+
+[주요 옵션]
+- --live            실장비 폴링 (연결 실패 시 자동으로 시뮬레이션 전환)
+- --simulate        가상 파형 생성
+- --port            시리얼 포트 (기본 COM3)
+- --baud            전송 속도 (기본 9600, 장비 출고 설정)
+- --slave           MODBUS 슬레이브 주소 (기본 1, 장비 출고 설정)
+- --duration        수집 시간(초), --live 전용
+- --interval        폴링 주기(초), --live 전용
+- --samples / --rate  샘플 수 / 샘플링 주파수(Hz), --simulate 전용
+- --output          결과 CSV 경로 (기본 outputs\fsc400_collected.csv)
+
+[출력 형식]
+timestamp, flow_m3h, velocity_ms, totalizer_m3
+- 상위 폴더가 없으면 자동 생성됩니다.
+
+[참고]
+- 도움말: fsc400_collector.exe --help
+- 실장비 통신 설정(9600 n 8 1, 슬레이브 1)은 FSC400 매뉴얼의 출고 기본값입니다.
+- 장비 설정을 바꾼 경우 옵션 값도 함께 맞춰 주세요.

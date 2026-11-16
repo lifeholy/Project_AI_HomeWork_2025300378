@@ -1,0 +1,7 @@
+{
+    "source": "시뮬레이션",
+    "port": "COM3",
+    "baud": 9600,
+    "slave": 1,
+    "interval": 1.0
+}

@@ -1,0 +1,40 @@
+AIRBOOK-FAS 서버 점검 진단기 (server_inspector.exe)
+
+[실행 방법]
+- 기본 실행 (이 폴더의 sample_data\airbook_fas_metrics.csv 사용)
+  server_inspector.exe
+- 실제 점검 결과 파일 진단
+  server_inspector.exe --input 점검결과.csv --output-dir outputs
+- 임계치 변경 예
+  server_inspector.exe --disk-crit 90 --cpu-warn 75
+
+[주요 옵션]
+- --input          점검 CSV 경로 (기본 sample_data\airbook_fas_metrics.csv)
+- --output-dir     산출물 폴더 (기본 outputs, 하위 reports\ 에 저장)
+- --make-sample    가상 점검 CSV 생성 후 종료 (예: --make-sample sample.csv)
+- --cpu-warn / --cpu-crit   CPU 주의/위험 임계치 (기본 70 / 85)
+- --mem-warn / --mem-crit   메모리 주의/위험 임계치 (기본 80 / 90)
+- --disk-warn / --disk-crit 디스크 주의/위험 임계치 (기본 75 / 85)
+
+[입력 CSV 형식]
+필수 열: timestamp, cpu_pct, mem_pct, disk_c_pct, disk_d_pct, core_service
+선택 열: top_processes, hostname (출력에는 항상 AIRBOOK-FAS-DEMO로 마스킹)
+- timestamp: YYYY-MM-DD HH:MM:SS
+- 값: 0~100 (% 기호 허용)
+- core_service: Running 또는 Stopped
+- top_processes: 이름:사용률 형식을 세미콜론으로 구분 (예: sqlservr.exe:23.1;w3wp.exe:8.0)
+
+[산출물]
+- outputs\reports\server_inspection_summary.md : 종합 등급, 지표별 진단표, 조치 권고, 경보 로그
+- outputs\reports\server_diagnosis.csv : 시점별 지표 값, 상태(OK/WARNING/CRITICAL), 지속 부하 여부
+
+[판정 기준]
+- 주의(WARNING) / 위험(CRITICAL) 임계치 이상이면 판정
+- 같은 지표가 연속 3회 이상 주의 이상이면 '지속 부하'로 표시
+- 핵심 서비스가 Stopped이면 위험
+- 종합 등급: CRITICAL > WARNING (지속 부하 포함) > HEALTHY
+
+[참고]
+- 실제 점검 배치(Server_Inspection_AutoMaster)의 출력 형식은 확인되지 않아 위 형식을 기준으로 함. 형식이 다르면 변환 후 입력해야 함.
+- sample_data 의 데이터는 가상 데이터이며 실서버 값이 아님.
+- 도움말: server_inspector.exe --help
