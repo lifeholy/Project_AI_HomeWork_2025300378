@@ -1,0 +1,27 @@
+{
+  "system": {
+    "interval_sec": 2,
+    "sound_alert_enabled": true,
+    "beep_freq_hz": 1200,
+    "beep_duration_ms": 350
+  },
+  "thresholds": {
+    "cpu_percent": 85,
+    "ram_percent": 85,
+    "disk_percent": 95,
+    "disk_drive": "C:\\"
+  },
+  "target_processes": [
+    "svchost.exe"
+  ],
+  "bat_paths": {
+    "annual": "C:\\checkPMI\\F100-4-360.bat",
+    "daily_eai_basic": "C:\\checkPMI\\F100-1-001.bat",
+    "annual_backup": "C:\\checkPMI\\F100-4-360-save.bat",
+    "daily_fas": "C:\\checkPMI\\F100-2-001.bat",
+    "daily_fas_detail": "C:\\checkPMI\\F100-2-001-DETAIL.bat",
+    "daily_eai": "C:\\checkPMI\\F100-1-001-DETAIL.bat",
+    "monthly": "C:\\checkPMI\\F100-3-030.bat",
+    "checkpc": "C:\\checkPMI\\checkPC.bat"
+  }
+}
